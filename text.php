@@ -6,9 +6,5 @@ $total=new db('total');
 ?>
 
 <pre>
-<?php
-
-
-
-?>
+<?php print_r($total->find(1));?>
 </pre>

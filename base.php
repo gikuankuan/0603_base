@@ -3,7 +3,7 @@
 class db
 {
     //設定屬性
-    private $dsn = "mysql:host=locationhost;charset=ytf8;dbname=db10";
+    private $dsn = "mysql:host=localhost;charset=utf8;dbname=db10";
     private $root = "root";
     private $password = "";
     private $table;
@@ -14,7 +14,7 @@ class db
     public function __construct($table)
     {
         $this->table = $table;
-        $this->pdo = new PDO($this->dsn,$this->root,$this->password);
+        $this->pdo=new PDO($this->dsn,$this->root,$this->password);
     }
 
     //取得全部資料
@@ -85,7 +85,22 @@ class db
 
 
     //新增更新資料
+    public function save($arg){
+        if(!empty($arg['id'])){
+            //更新
+            //update $this->table set xxx=yyy where `id`='xxx'
+            foreach($arg as $key => $value){
+                $tmp[]=sprintf("`%s`='%s'",$key,$value);
+            }
+            $sql="update $this->table set ".implode(",",$tmp)." where `id`='".$arg['id']."'";
+        }else{
+            //新增
+            //insert into $this->table (``,``,``)values(``,``,``)
+            $sql="insert into $this->table (`".implode("`,`",array_keys($arg))."`) values('".implode("','",$arg)."')";
+        }
 
+
+    }
 
 
     //刪除資料
