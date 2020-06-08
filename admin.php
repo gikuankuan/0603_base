@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<?php include_once "base.php";?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0068)?do=admin&redo=title -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,7 +50,7 @@
 							校園映象資料管理 </div>
 					</a>
 					<a style="color:#000; font-size:13px; text-decoration:none;" href="?do=
-					.total">
+					total">
 						<div class="mainmu">
 							進站總人數管理 </div>
 					</a>
@@ -94,7 +95,14 @@
 
 				<!-- 網站標題管理 -->
 				<?php
-				include "backend/title.php";
+				$do=(!empty($_GET['do']))?$_GET['do']:'title';
+				$file='backend/'.$do.".php";
+				if(file_exists($file)){
+					include $file;
+				}else{
+					include 'backend/title.php';
+				}
+
 
 
 				?>
